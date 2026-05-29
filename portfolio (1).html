@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Google Fonts: DM Sans + DM Serif Display -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* =============================================
+       CSS VARIABLES — Edit colors here easily
+    ============================================= */
+    :root {
+      --accent: #2563EB;          /* Blue accent — change to #16A34A for green */
+      --accent-light: #EFF6FF;
+      --accent-mid: #93C5FD;
+      --text-dark: #1E293B;
+      --text-mid: #475569;
+      --text-light: #94A3B8;
+      --bg: #FFFFFF;
+      --bg-soft: #F8FAFC;
+      --border: #E2E8F0;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    /* =============================================
+       BASE
+    ============================================= */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text-dark);
+      background: var(--bg);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 { font-family: var(--serif); }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    section { padding: 80px 0; }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      color: var(--text-mid);
+      max-width: 520px;
+      margin-bottom: 48px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+
+    /* =============================================
+       NAVBAR
+    ============================================= */
+    #mainNav {
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+
+    #mainNav.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,.08);
+    }
+
+    .navbar-brand {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--text-dark) !important;
+    }
+
+    .navbar-brand span {
+      color: var(--accent);
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid) !important;
+      padding: 6px 14px !important;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: var(--accent-light);
+      color: var(--accent) !important;
+    }
+
+    /* =============================================
+       HOME / ABOUT
+    ============================================= */
+    #home {
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--border);
+      padding-top: 110px;
+    }
+
+    .home-greeting {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .home-name {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1.15;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .home-title {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+    }
+
+    .home-title span {
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .85rem;
+      font-weight: 500;
+    }
+
+    .home-bio {
+      color: var(--text-mid);
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+
+    /* Avatar placeholder */
+    .avatar-wrap {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 4px solid var(--accent-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-wrap .avatar-icon {
+      font-size: 80px;
+      color: var(--accent-mid);
+    }
+
+    /* Skill tags */
+    .skill-tag {
+      display: inline-block;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin: 4px 3px;
+      transition: border-color .2s, color .2s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .skill-tag.accent {
+      background: var(--accent-light);
+      border-color: var(--accent-mid);
+      color: var(--accent);
+    }
+
+    /* Strength cards */
+    .strength-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      height: 100%;
+      transition: box-shadow .2s, border-color .2s;
+    }
+
+    .strength-card:hover {
+      box-shadow: var(--shadow);
+      border-color: var(--accent-mid);
+    }
+
+    .strength-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .strength-card h6 {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: .85rem;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .strength-card p {
+      font-size: .8rem;
+      color: var(--text-mid);
+      margin: 0;
+    }
+
+    /* =============================================
+       WORK EXPERIENCE
+    ============================================= */
+    #experience { background: var(--bg); }
+
+    .exp-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      margin-bottom: 24px;
+    }
+
+    .exp-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: .04em;
+    }
+
+    .exp-company {
+      font-size: .85rem;
+      color: var(--text-mid);
+    }
+
+    .exp-card h5 {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .exp-card ul {
+      padding-left: 18px;
+      color: var(--text-mid);
+      font-size: .875rem;
+      margin-bottom: 0;
+    }
+
+    .exp-card ul li { margin-bottom: 4px; }
+
+    /* =============================================
+       WORK SAMPLES
+    ============================================= */
+    #samples { background: var(--bg-soft); }
+
+    .sample-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 100%;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .sample-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .sample-thumb {
+      width: 100%;
+      height: 160px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: var(--accent-mid);
+      overflow: hidden;
+    }
+
+    .sample-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sample-body {
+      padding: 16px;
+    }
+
+    .sample-type {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .sample-body h6 {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: .9rem;
+      margin-bottom: 4px;
+    }
+
+    .sample-body p {
+      font-size: .8rem;
+      color: var(--text-mid);
+      margin-bottom: 12px;
+    }
+
+    .btn-sample {
+      font-size: .78rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      background: var(--bg-soft);
+      transition: border-color .2s, color .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-sample:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* =============================================
+       RESUME
+    ============================================= */
+    #resume { background: var(--bg); }
+
+    .resume-box {
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .resume-box p {
+      color: var(--text-mid);
+      max-width: 400px;
+      margin: 0 auto 24px;
+    }
+
+    .btn-primary-custom {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 28px;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: opacity .2s, transform .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary-custom:hover {
+      opacity: .88;
+      transform: translateY(-1px);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* =============================================
+       CONTACT
+    ============================================= */
+    #contact { background: var(--bg-soft); }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      transition: border-color .2s;
+    }
+
+    .contact-item:hover { border-color: var(--accent-mid); }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .contact-item h6 {
+      font-family: var(--sans);
+      font-size: .75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-light);
+      margin-bottom: 2px;
+    }
+
+    .contact-item p {
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: var(--text-dark);
+      color: #94A3B8;
+      text-align: center;
+      padding: 28px 16px;
+      font-size: .8rem;
+    }
+
+    footer span { color: #fff; }
+
+    /* =============================================
+       RESPONSIVE TWEAKS
+    ============================================= */
+    @media (max-width: 768px) {
+      section { padding: 60px 0; }
+      .resume-box { padding: 28px 20px; }
+      .exp-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVBAR — Edit nav links here
+  ============================================= -->
+  <nav id="mainNav" class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+      <!-- EDIT: Your name/initials here -->
+      <a class="navbar-brand" href="#home">cj<span>DEV</span></a>
+
+      <button class="navbar-toggler border-0 shadow-none" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <i class="bi bi-list fs-4" style="color:var(--text-dark)"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto gap-1">
+          <li class="nav-item"><a class="nav-link" href="#home">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#samples">Work Samples</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <!-- =============================================
+       SECTION 1: HOME / ABOUT ME
+  ============================================= -->
+  <section id="home">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+
+        <!-- Text Column -->
+        <div class="col-lg-7">
+          <p class="home-greeting">👋 Hello, I'm</p>
+
+          <!-- EDIT: Your full name -->
+          <h1 class="home-name">Crister John F. Beltran</h1>
+
+          <!-- EDIT: Your job title(s) -->
+          <p class="home-title">
+            <span>Web Developer</span>&nbsp;
+            <span>System Administrator</span>
+          </p>
+
+          <!-- EDIT: Short bio / objective -->
+          <p class="home-bio">
+            IT graduate with hands-on skills in web development and technical support,
+            seeking an entry-level role where I can apply my technical knowledge
+            and contribute reliable, practical solutions from day one.
+          </p>
+
+          <!-- EDIT: Education details -->
+          <div class="d-flex flex-column gap-1 mb-4" style="font-size:.85rem; color:var(--text-mid)">
+            <div><i class="bi bi-mortarboard-fill me-2" style="color:var(--accent)"></i>
+              BS Information Technology — Nueva Ecija University of Science and Technology (2022–2026)
+            </div>
+            <div><i class="bi bi-award-fill me-2" style="color:var(--accent)"></i>
+              IT Specialist: HTML & CSS — Certiport / Pearson VUE (2025)
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="mb-2" style="font-size:.75rem; font-weight:600; color:var(--text-light); text-transform:uppercase; letter-spacing:.08em;">
+            Technical Skills
+          </div>
+          <!-- EDIT: Add or remove skill tags -->
+          <div class="mb-3">
+            <span class="skill-tag accent">HTML</span>
+            <span class="skill-tag accent">CSS</span>
+            <span class="skill-tag accent">JavaScript</span>
+            <span class="skill-tag accent">PHP</span>
+            <span class="skill-tag accent">MySQL</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">XAMPP</span>
+            <span class="skill-tag">GitHub (Basic)</span>
+            <span class="skill-tag">MS Office</span>
+            <span class="skill-tag">System Admin (Basic)</span>
+          </div>
+        </div>
+
+        <!-- Avatar Column -->
+        <div class="col-lg-5 text-center">
+          <div class="avatar-wrap mx-auto mb-4">
+            <img scr = "https://github.com/ideeey-design/Portfolio/raw/main/IMG_8064.jpg" alt = "Your Name"/>
+          </div>
+
+          <!-- Strengths -->
+          <div class="row g-3 text-start mt-2">
+            <!-- EDIT: Strength cards — change icon (Bootstrap Icons), title, description -->
+            <div class="col-6">
+              <div class="strength-card">
+                <div class="strength-icon"><i class="bi bi-code-slash"></i></div>
+                <h6>Web Development</h6>
+                <p>Frontend & backend with HTML, CSS, JS, PHP, MySQL</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="strength-card">
+                <div class="strength-icon"><i class="bi bi-tools"></i></div>
+                <h6>Technical Support</h6>
+                <p>Troubleshooting hardware, software, and system issues</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="strength-card">
+                <div class="strength-icon"><i class="bi bi-palette"></i></div>
+                <h6>UI/UX Design</h6>
+                <p>Creating clean, user-friendly interfaces using Figma</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="strength-card">
+                <div class="strength-icon"><i class="bi bi-diagram-3"></i></div>
+                <h6>Process Improvement</h6>
+                <p>Documenting workflows and optimizing team processes</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SECTION 2: WORK EXPERIENCE
+  ============================================= -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label">Career</div>
+      <div class="divider"></div>
+      <h2 class="section-title">Work Experience</h2>
+      <p class="section-sub">My professional background and key contributions.</p>
+
+      <!-- EDIT: Job 1 — Copy this block to add more jobs -->
+      <div class="exp-card">
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-2 mb-3">
+          <div>
+            <h5>Production Process Contributor — OJT</h5>
+            <div class="exp-company">
+              <i class="bi bi-building me-1"></i>
+              TN Tech Electronics Inc &nbsp;|&nbsp; PEZA, Rosario, Cavite
+            </div>
+          </div>
+          <span class="exp-badge">Jan 2026 – Apr 2026</span>
+        </div>
+        <ul>
+          <li>Applied systematic troubleshooting and process documentation in a live production environment.</li>
+          <li>Participated in product testing and process evaluation, ensuring quality output standards.</li>
+          <li>Contributed to workflow improvements that increased production efficiency and item output success.</li>
+        </ul>
+      </div>
+
+      <!-- Add more exp-card blocks here for additional jobs -->
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SECTION 3: WORK SAMPLES
+  ============================================= -->
+  <section id="samples">
+    <div class="container">
+      <div class="section-label">Portfolio</div>
+      <div class="divider"></div>
+      <h2 class="section-title">Work Samples</h2>
+      <p class="section-sub">Projects, reports, certificates, and documents I've worked on.</p>
+
+      <div class="row g-4">
+
+        <!-- EDIT: Sample Card 1 — Duplicate this block to add more items -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="sample-card">
+            <div class="sample-thumb">
+              <!--
+                EDIT: Replace icon with an image:
+                <img src="sample1.jpg" alt="Project Screenshot"/>
+              -->
+              <i class="bi bi-laptop"></i>
+            </div>
+            <div class="sample-body">
+              <div class="sample-type">Web Project</div>
+              <!-- EDIT: Pro  ject title -->
+              <h6>[Project Title Here]</h6>
+              <!-- EDIT: Short description -->
+              <p>Brief description of what this project does and what technologies you used.</p>
+              <!-- EDIT: Link — change href to your file URL or GitHub link -->
+              <a href="#" class="btn-sample"><i class="bi bi-eye"></i> View</a>
+              <a href="#" class="btn-sample ms-1"><i class="bi bi-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample Card 2 -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="sample-card">
+            <div class="sample-thumb">
+              <i class="bi bi-file-earmark-text"></i>
+            </div>
+            <div class="sample-body">
+              <div class="sample-type">Certificate</div>
+              <h6>IT Specialist: HTML & CSS</h6>
+              <p>Certiport / Pearson VUE Business — High Passing Score, November 2025.</p>
+              <!-- EDIT: Replace # with link to your certificate PDF or image -->
+              <a href="#" class="btn-sample"><i class="bi bi-eye"></i> View</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample Card 3 -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="sample-card">
+            <div class="sample-thumb">
+              <i class="bi bi-award"></i>
+            </div>
+            <div class="sample-body">
+              <div class="sample-type">Certificate</div>
+              <h6>Job Ready: Employability Skill</h6>
+              <p>Wadhwani Foundation — 75-Hour Training Program, May 2026.</p>
+              <!-- EDIT: Replace # with your certificate link -->
+              <a href="#" class="btn-sample"><i class="bi bi-eye"></i> View</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample Card 4 — Add as many as you need -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="sample-card">
+            <div class="sample-thumb">
+              <i class="bi bi-kanban"></i>
+            </div>
+            <div class="sample-body">
+              <div class="sample-type">School Project</div>
+              <h6>[School Project Title]</h6>
+              <p>Describe your school capstone or thesis project here briefly.</p>
+              <a href="#" class="btn-sample"><i class="bi bi-eye"></i> View</a>
+              <a href="#" class="btn-sample ms-1"><i class="bi bi-github"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SECTION 4: RESUME / CV
+  ============================================= -->
+  <section id="resume">
+    <div class="container">
+      <div class="section-label">Document</div>
+      <div class="divider"></div>
+      <h2 class="section-title">Resume / CV</h2>
+      <p class="section-sub">Download or view my full resume for detailed information.</p>
+
+      <div class="resume-box">
+        <i class="bi bi-file-earmark-person" style="font-size:48px; color:var(--accent); display:block; margin-bottom:16px;"></i>
+        <h5 style="font-family:var(--sans); font-weight:600;">[Your Full Name] — Resume</h5>
+        <!-- EDIT: Short note about your resume -->
+        <p>
+          My full resume includes detailed work experience, education, certifications,
+          technical skills, and references. Available in PDF format.
+        </p>
+        <!-- EDIT: Replace # with the path to your PDF file, e.g. "resume.pdf" -->
+        <a href="#" class="btn-primary-custom" download>
+          <i class="bi bi-download"></i> Download Resume (PDF)
+        </a>
+        &nbsp;
+        <!-- EDIT: Replace # with your PDF link for online viewing -->
+        <a href="#" class="btn-primary-custom" target="_blank" style="background:var(--bg); color:var(--accent); border:1px solid var(--accent-mid);">
+          <i class="bi bi-eye"></i> View Online
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SECTION 5: CONTACT
+  ============================================= -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">Get in Touch</div>
+      <div class="divider"></div>
+      <h2 class="section-title">Contact</h2>
+      <p class="section-sub">Feel free to reach out for job opportunities or inquiries.</p>
+
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5">
+
+          <!-- EDIT: Replace with your actual email address -->
+          <div class="contact-item">
+            <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+            <div>
+              <h6>Email</h6>
+              <p><a href="mailto:youremail@gmail.com">youremail@gmail.com</a></p>
+            </div>
+          </div>
+
+          <!-- EDIT: Replace with your actual phone number -->
+          <div class="contact-item">
+            <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
+            <div>
+              <h6>Phone / Mobile</h6>
+              <p><a href="tel:+639XXXXXXXXX">+63 9XX XXX XXXX</a></p>
+            </div>
+          </div>
+
+          <!-- OPTIONAL: Add location if you want -->
+          <div class="contact-item">
+            <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+            <div>
+              <h6>Location</h6>
+              <!-- EDIT: Your city/province -->
+              <p>Nueva Ecija, Philippines</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer>
+    <!-- EDIT: Your name -->
+    &copy; 2026 <span>[Your Full Name]</span>. All rights reserved.
+  </footer>
+
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // =============================================
+    // NAVBAR: Add shadow on scroll
+    // =============================================
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // =============================================
+    // NAVBAR: Highlight active section on scroll
+    // =============================================
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + entry.target.id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // =============================================
+    // NAVBAR: Close mobile menu after clicking a link
+    // =============================================
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('navbarMenu');
+        if (menu.classList.contains('show')) {
+          new bootstrap.Collapse(menu).hide();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
